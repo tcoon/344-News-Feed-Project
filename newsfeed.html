@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <script src="scripts.js"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <title>Tim Coon's News Feed</title>
+    </head>
+    <body>
+        <p>[insert news feed here]</p>
+
+        <!--
+        <select id="newsSelect" name="newsSelect">
+            <option value="poker">ESPN Poker</option>
+            <option value="baseball">ESPN MLB</option>
+            <option value="soccer">ESPN Soccer</option>
+        </select>
+        <input id="loadtext" type="submit" value="Load">
+        -->
+
+        <form id="signup" action="signup.php">
+            <h3>Sign Up</h3>
+
+            <label for="uname">Username:</label>
+            <input type="text" placeholder="Enter Username" name="uname" maxlength="50" required>
+
+            <label for="psw">Password:</label>
+            <input type="password" placeholder="Enter Password" name="psw" maxlength="50" required>
+
+            <button type="submit" class="signupbtn">Sign Up</button>
+        </form>
+        <?php include 'create.php';?>
+
+        <form id="login" action="login.php">
+            <h3>Log in</h3>
+
+            <label for="username" >Username:</label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="password" >Password:</label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+
+            <button type="submit" class="loginbtn">Log In</button>
+        </form>
+        <?php include 'login.php';?>
+
+        <!--
+        <div id="header">
+            <img id="logo" /><h1 id="newsTitle">Poker News</h1>
+        </div>
+        <div id="content">
+            <p>No data has been loaded.</p>
+        </div>
+        -->
+
+    </body>
+</html>

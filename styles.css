@@ -1,0 +1,31 @@
+body {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #EEEEEE;
+}
+
+#header * {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.item {
+    border: 1px solid blue;
+    padding: 1em;
+    margin: 0.5em;
+    text-align: left;
+}
+
+.item h2 {
+    font-size: 120%;
+    padding-bottom: 0.2em;
+}
+
+/* not used right now because the descriptions are the same as the titles */
+.item p {
+    padding-top: 0.2em;
+}
