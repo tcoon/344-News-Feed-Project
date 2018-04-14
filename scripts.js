@@ -33,8 +33,8 @@ function init(urls){
         //     var url = urls[i];
         //     $.get(url).done(function(data){xmlLoaded(data);});
         // }
-        urls.forEach(function(url){$.get(url).done(function(data){xmlLoaded(data);})}); // wow this is unreadable
         
+        xmlLoaded(urls);
         //alert(data);
     }
     else {
@@ -44,33 +44,39 @@ function init(urls){
 }
 
 
-function xmlLoaded(obj){
+function xmlLoaded(urls){
     //console.log("obj = " +obj);
-
-    var items = obj.querySelectorAll("item");
+    //console.log(obj.url);
+    document.querySelector("#newsContent").innerHTML = "";
+    urls.forEach(function(url){
+        $.get(url).done(function(obj){
+            var items = obj.querySelectorAll("item");
     
-    //parse the data
-    var html = "";
-    for (var i=0;i<items.length;i++){
-        //get the data out of the item
-        var newsItem = items[i];
-        var title = newsItem.querySelector("title").firstChild.nodeValue;
-        console.log(title);
-        var description = newsItem.querySelector("description").firstChild.nodeValue;
-        var link = newsItem.querySelector("link").firstChild.nodeValue;
-        var pubDate = newsItem.querySelector("pubDate").firstChild.nodeValue;
-        
-        //present the item as HTML
-        var line = '<div class="item">';
-        line += "<h2>"+title+"</h2>";
-        line += '<p><i>'+pubDate+'</i> - <a href="'+link+'" target="_blank">See original</a></p>';
-        //title and description are always the same (for some reason) so I'm only including one
-        //line += "<p>"+description+"</p>";
-        line += "</div>";
-        
-        html += line;
-    }
-    document.querySelector("#newsContent").innerHTML = html;
+            //parse the data
+            var html = "";
+            for (var i=0;i<items.length;i++){
+                //get the data out of the item
+                var newsItem = items[i];
+                var title = newsItem.querySelector("title").firstChild.nodeValue;
+                //console.log(title);
+                var description = newsItem.querySelector("description").firstChild.nodeValue;
+                var link = newsItem.querySelector("link").firstChild.nodeValue;
+                var pubDate = newsItem.querySelector("pubDate").firstChild.nodeValue;
+                
+                //present the item as HTML
+                var line = '<div class="item">';
+                line += "<h2>"+title+"</h2>";
+                line += '<p><i>'+pubDate+'</i> - <a href="'+link+'" target="_blank">See original</a></p>';
+                //title and description are always the same (for some reason) so I'm only including one
+                //line += "<p>"+description+"</p>";
+                line += "</div>";
+                
+                html += line;
+            }
+            document.querySelector("#newsContent").innerHTML += html;
+        });
+    });
+    
         
     //$("#newsContent").fadeIn(1000);
 }
