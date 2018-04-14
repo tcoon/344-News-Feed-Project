@@ -1,33 +1,53 @@
 "use strict";
-var url = "http://www.espn.com/espn/rss/poker/master";
+var urls = [];
+//var url = "http://www.espn.com/espn/rss/poker/master";
+
+function checkBoxes(elem) {
+    var url = "http://www.espn.com/espn/rss/" + elem.id + "/news";
+    if(elem.checked) {
+        urls.push(url);
+    }
+    else {
+        var index = urls.indexOf(url);
+        if(index > -1) {
+            urls.splice(index, 1);
+        }
+    }
+    init(urls);
+}
+
 window.onload = function(){
-    init(url);
+    init(urls);
 }
 
 
-function init(url){
-    //NHL URL for ESPN RSS feed
-    console.log("Entering Init");   
+function init(urls){
+    if(urls.length > 0) {
+        //NHL URL for ESPN RSS feed
+        //console.log("Entering Init");   
+        //document.querySelector("#newsContent").innerHTML = "<b>Loading news...</b>";
+        //$("#newsContent").fadeOut(250);
+        //fetch the data
+        // for(var i=0; i<urls.length;i++)
+        // {
+        //     var url = urls[i];
+        //     $.get(url).done(function(data){xmlLoaded(data);});
+        // }
+        urls.forEach(function(url){$.get(url).done(function(data){xmlLoaded(data);})}); // wow this is unreadable
+        
+        //alert(data);
+    }
+    else {
+        document.querySelector("#newsContent").innerHTML = "<p>No news content loaded.</p>";
+    }
     
-
-    document.querySelector("#content").innerHTML = "<b>Loading news...</b>";
-    $("#content").fadeOut(250);
-    //fetch the data
-    $.get(url).done(function(data){xmlLoaded(data);});
-    alert(data);
 }
 
 
 function xmlLoaded(obj){
-    console.log("obj = " +obj);
+    //console.log("obj = " +obj);
 
     var items = obj.querySelectorAll("item");
-    
-    //show the logo
-    var image = obj.querySelector("image")
-    var logoSrc = image.querySelector("url").firstChild.nodeValue;
-    var logoLink = image.querySelector("link").firstChild.nodeValue;
-    $("#logo").attr("src",logoSrc);
     
     //parse the data
     var html = "";
@@ -50,7 +70,7 @@ function xmlLoaded(obj){
         
         html += line;
     }
-    document.querySelector("#content").innerHTML = html;
+    document.querySelector("#newsContent").innerHTML = html;
         
-    $("#content").fadeIn(1000);
+    //$("#newsContent").fadeIn(1000);
 }

@@ -11,29 +11,19 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-        <title>Tim Coon's News Feed</title>
+        <title>News Feed Project</title>
     </head>
     <body>
-        <p>[insert news feed here]</p>
-
         <!--
-        <select id="newsSelect" name="newsSelect">
-            <option value="poker">ESPN Poker</option>
-            <option value="baseball">ESPN MLB</option>
-            <option value="soccer">ESPN Soccer</option>
-        </select>
-        <input id="loadtext" type="submit" value="Load">
-        -->
-
         <form id="signup" action="signup.php">
             <h3>Sign Up</h3>
 
             <label for="uname">Username:</label>
             <input type="text" placeholder="Enter Username" name="uname" maxlength="50" required>
-
+            <br>
             <label for="psw">Password:</label>
             <input type="password" placeholder="Enter Password" name="psw" maxlength="50" required>
-
+            <br>
             <button type="submit" class="signupbtn">Sign Up</button>
         </form>
         <?php include 'create.php';?>
@@ -43,22 +33,32 @@
 
             <label for="username" >Username:</label>
             <input type="text" placeholder="Enter Username" name="username" required>
-
+            <br>
             <label for="password" >Password:</label>
             <input type="password" placeholder="Enter Password" name="password" required>
-
+            <br>
             <button type="submit" class="loginbtn">Log In</button>
         </form>
         <?php include 'login.php';?>
-
-        <!--
-        <div id="header">
-            <img id="logo" /><h1 id="newsTitle">Poker News</h1>
-        </div>
-        <div id="content">
-            <p>No data has been loaded.</p>
-        </div>
         -->
+
+        
+        
+        <div id="header">
+            <img src="http://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif" />
+            <h1 id="newsTitle">Sports News</h1>
+        </div>
+        <div>
+            <input type="checkbox" id="nfl" onchange="checkBoxes(this)">
+            <label for="nfl">American Football News</label>
+            <input type="checkbox" id="nbl" onchange="checkBoxes(this)">
+            <label for="nbl">Baseball News</label>
+            <input type="checkbox" id="nhl" onchange="checkBoxes(this)">
+            <label for="nhl">Hockey News</label>
+        </div>
+        <div id="newsContent">
+        </div>
+        
 
     </body>
 </html>
