@@ -12,6 +12,21 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
         <title>News Feed Project</title>
+        <script type="text/javascript">
+            if(localStorage){
+                $(document).ready(function(){
+                    // Store data
+                    if(localStorage.getItem("last")) {
+                        document.getElementById("last").innerHTML = localStorage.getItem("last");
+                    } else {
+                        document.getElementById("last").innerHTML = "This is your first time here!";
+                    }
+                    localStorage.setItem("last", new Date().toLocaleString());
+                });
+            } else{
+                alert("Sorry, your browser do not support local storage.");
+            }
+        </script>
     </head>
     <body>
         <!--
@@ -48,6 +63,7 @@
             <img src="http://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif" />
             <h1 id="newsTitle">Sports News</h1>
         </div>
+        <p>Your last visit was: <div id="last"></div></p>
         <!--<h3>Favorite Articles</h3>
         <div id="favorites">
             <p>You don't have any favorites! :(</p>

@@ -1,4 +1,5 @@
 "use strict";
+
 var urls = [];
 //var url = "http://www.espn.com/espn/rss/poker/master";
 
