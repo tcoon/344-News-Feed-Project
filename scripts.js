@@ -59,8 +59,8 @@ function xmlLoaded(urls){
                 
                 //present the item as HTML
                 var line = '';
-                if (url.indexOf('nbl') !== -1) {
-                    line = '<div class="item" id="nbl">';
+                if (url.indexOf('mlb') !== -1) {
+                    line = '<div class="item" id="mlb">';
                 } else if (url.indexOf('nhl') !== -1) {
                     line = '<div class="item" id="nhl">';
                 } else if (url.indexOf('nfl') !== -1) {
