@@ -14,10 +14,22 @@ body {
 }
 
 .item {
-    border: 1px solid blue;
+    border: 1px solid black;
     padding: 1em;
     margin: 0.5em;
     text-align: left;
+}
+
+#nbl {
+    border: 1px solid red;
+}
+
+#nfl {
+    border: 1px solid blue;
+}
+
+#nhl {
+    border: 1px solid green;
 }
 
 .item h2 {

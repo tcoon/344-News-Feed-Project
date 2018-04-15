@@ -1,7 +1,6 @@
 "use strict";
 
 var urls = [];
-//var url = "http://www.espn.com/espn/rss/poker/master";
 
 function checkBoxes(elem) {
     var url = "http://www.espn.com/espn/rss/" + elem.id + "/news";
@@ -24,60 +23,72 @@ window.onload = function(){
 
 function init(urls){
     if(urls.length > 0) {
-        //NHL URL for ESPN RSS feed
-        //console.log("Entering Init");   
-        //document.querySelector("#newsContent").innerHTML = "<b>Loading news...</b>";
-        //$("#newsContent").fadeOut(250);
-        //fetch the data
-        // for(var i=0; i<urls.length;i++)
-        // {
-        //     var url = urls[i];
-        //     $.get(url).done(function(data){xmlLoaded(data);});
-        // }
-        
         xmlLoaded(urls);
-        //alert(data);
-    }
-    else {
+    } else {
         document.querySelector("#newsContent").innerHTML = "<p>No news content loaded.</p>";
     }
     
 }
 
+function getItems(url){
+
+    return newsItems;
+}
 
 function xmlLoaded(urls){
     //console.log("obj = " +obj);
     //console.log(obj.url);
     document.querySelector("#newsContent").innerHTML = "";
+    var newsItems = [];
+    var count = 0;
+    
     urls.forEach(function(url){
         $.get(url).done(function(obj){
+            
             var items = obj.querySelectorAll("item");
-    
-            //parse the data
-            var html = "";
+            
             for (var i=0;i<items.length;i++){
                 //get the data out of the item
+
                 var newsItem = items[i];
+                
                 var title = newsItem.querySelector("title").firstChild.nodeValue;
-                //console.log(title);
                 var description = newsItem.querySelector("description").firstChild.nodeValue;
                 var link = newsItem.querySelector("link").firstChild.nodeValue;
                 var pubDate = newsItem.querySelector("pubDate").firstChild.nodeValue;
                 
                 //present the item as HTML
-                var line = '<div class="item">';
+                var line = '';
+                if (url.indexOf('nbl') !== -1) {
+                    line = '<div class="item" id="nbl">';
+                } else if (url.indexOf('nhl') !== -1) {
+                    line = '<div class="item" id="nhl">';
+                } else if (url.indexOf('nfl') !== -1) {
+                    line = '<div class="item" id="nfl">';
+                }
                 line += "<h2>"+title+"</h2>";
                 line += '<p><i>'+pubDate+'</i> - <a href="'+link+'" target="_blank">See original</a></p>';
-                //title and description are always the same (for some reason) so I'm only including one
-                //line += "<p>"+description+"</p>";
                 line += "</div>";
-                
-                html += line;
+                newsItems.push({ htmlLine: line, date: new Date(pubDate) });
             }
-            document.querySelector("#newsContent").innerHTML += html;
+            count++;
+            _callback(newsItems, count);  // wow this is janky
         });
     });
-    
-        
-    //$("#newsContent").fadeIn(1000);
+}
+
+function _callback(newsItems, count) {
+    if (count == urls.length) {  // yeah, THIS janky
+        newsItems.sort(function(a,b){
+            return b.date - a.date;
+        });
+
+        var html = "";
+
+        newsItems.forEach(function(item){
+            html += item.htmlLine;
+        });
+
+        document.querySelector("#newsContent").innerHTML += html;
+    }
 }
