@@ -29,8 +29,13 @@
         </script>
     </head>
     <body>
+        <div id="header">
+            <img src="http://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif" />
+            <h1 id="newsTitle">Sports News</h1>
+        </div>
         <!--
-        <form id="signup" action="signup.php">
+        <div id="before_login">
+            <form id="signup" action="signup.php">
             <h3>Sign Up</h3>
 
             <label for="uname">Username:</label>
@@ -40,44 +45,40 @@
             <input type="password" placeholder="Enter Password" name="psw" maxlength="50" required>
             <br>
             <button type="submit" class="signupbtn">Sign Up</button>
-        </form>
-        <?php include 'create.php';?>
+            </form>
+            <?php include 'create.php';?>
 
-        <form id="login" action="login.php">
-            <h3>Log in</h3>
+            <form id="login" action="login.php">
+                <h3>Log in</h3>
 
-            <label for="username" >Username:</label>
-            <input type="text" placeholder="Enter Username" name="username" required>
-            <br>
-            <label for="password" >Password:</label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-            <br>
-            <button type="submit" class="loginbtn">Log In</button>
-        </form>
-        <?php include 'login.php';?>
-        -->
-
-        
-        
-        <div id="header">
-            <img src="http://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif" />
-            <h1 id="newsTitle">Sports News</h1>
-        </div>
-        <p>Your last visit was: <div id="last"></div></p>
-        <!--<h3>Favorite Articles</h3>
-        <div id="favorites">
-            <p>You don't have any favorites! :(</p>
+                <label for="username" >Username:</label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <br>
+                <label for="password" >Password:</label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <br>
+                <button type="submit" class="loginbtn">Log In</button>
+            </form>
+            <?php include 'login.php';?>
         </div>
         -->
-        <div>
-            <input type="checkbox" id="nfl" onchange="checkBoxes(this)">
-            <label for="nfl" style="color:blue">American Football News</label>
-            <input type="checkbox" id="mlb" onchange="checkBoxes(this)">
-            <label for="mlb" style="color:red">Baseball News</label>
-            <input type="checkbox" id="nhl" onchange="checkBoxes(this)">
-            <label for="nhl" style="color:green">Hockey News</label>
-        </div>
-        <div id="newsContent">
+        <div id="after_login">
+            <p>Your last visit was: <div id="last"></div></p>
+            <h4>Favorites:</h4>
+            <div id="favorites">
+                You haven't selected any favorites!
+            </div>
+            <br/>
+            <div>
+                <input type="checkbox" id="nfl" onchange="checkBoxes(this)">
+                <label for="nfl" style="color:blue">American Football News</label>
+                <input type="checkbox" id="mlb" onchange="checkBoxes(this)">
+                <label for="mlb" style="color:red">Baseball News</label>
+                <input type="checkbox" id="nhl" onchange="checkBoxes(this)">
+                <label for="nhl" style="color:green">Hockey News</label>
+            </div>
+            <div id="newsContent">
+            </div>
         </div>
     </body>
 </html>

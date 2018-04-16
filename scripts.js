@@ -1,6 +1,49 @@
 "use strict";
 
 var urls = [];
+var items = [];
+var favs = [];
+
+function del(elem) {
+    var index = -1;
+    favs.forEach(function(fav){
+        if(fav.date.getTime() == new Date(elem.id).getTime()) {
+            index = favs.indexOf(fav);
+        }
+    });
+    favs.splice(index, 1);
+    updateFavs();
+}
+
+function favorite(elem) {
+    var line = '<button id="'+elem.id+'" onclick="favorite(this)">Favorite</button>';
+    items.forEach(function(item){
+        if(item.date.getTime() == new Date(elem.id).getTime()) {
+            item.htmlLine = item.htmlLine.replace(line,'<button id="'+elem.id+'" onclick="del(this)">Remove</button>');
+            favs.push(item);
+        }
+    });
+    updateFavs();
+}
+
+function updateFavs() {
+    var html = "";
+
+    favs.sort(function(a,b){
+        return b.date - a.date;
+    });
+
+    
+    if (favs.length == 0) {
+        html = "You haven't selected any favorites!"
+    } else {
+        favs.forEach(function(fav){
+            html += fav.htmlLine;
+        });
+    }
+
+    document.querySelector("#favorites").innerHTML = html;
+}
 
 function checkBoxes(elem) {
     var url = "http://www.espn.com/espn/rss/" + elem.id + "/news";
@@ -28,11 +71,6 @@ function init(urls){
         document.querySelector("#newsContent").innerHTML = "<p>No news content loaded.</p>";
     }
     
-}
-
-function getItems(url){
-
-    return newsItems;
 }
 
 function xmlLoaded(urls){
@@ -68,6 +106,7 @@ function xmlLoaded(urls){
                 }
                 line += "<h2>"+title+"</h2>";
                 line += '<p><i>'+pubDate+'</i> - <a href="'+link+'" target="_blank">See original</a></p>';
+                line += '<button id="'+pubDate+'" onclick="favorite(this)">Favorite</button>';
                 line += "</div>";
                 newsItems.push({ htmlLine: line, date: new Date(pubDate) });
             }
@@ -82,6 +121,8 @@ function _callback(newsItems, count) {
         newsItems.sort(function(a,b){
             return b.date - a.date;
         });
+
+        items = newsItems;
 
         var html = "";
 
