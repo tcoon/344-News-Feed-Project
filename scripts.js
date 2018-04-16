@@ -93,6 +93,7 @@ function init(urls){
         xmlLoaded(urls);
     } else {
         document.querySelector("#newsContent").innerHTML = "<p>No news content loaded.</p>";
+        prevHtml="";
     }
     
 }
