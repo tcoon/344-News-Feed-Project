@@ -20,6 +20,7 @@ var items = [];
 var favs = [];
 var disabled = [];
 var tempScrollTop = $(window).scrollTop();
+var prevHtml = "";
 
 function del(elem) {
     var index = -1;
@@ -68,6 +69,7 @@ function updateFavs() {
 }
 
 function checkBoxes(elem) {
+    tempScrollTop = $(window).scrollTop();
     var url = "http://www.espn.com/espn/rss/" + elem.id + "/news";
     if(elem.checked) {
         urls.push(url);
@@ -96,15 +98,13 @@ function init(urls){
 }
 
 function xmlLoaded(urls){
-    //console.log("obj = " +obj);
-    //console.log(obj.url);
-    document.querySelector("#newsContent").innerHTML = "";
+    document.querySelector("#newsContent").innerHTML = prevHtml;
     var newsItems = [];
     var count = 0;
     
     urls.forEach(function(url){
         $.get(url).done(function(obj){
-            
+            document.querySelector("#newsContent").innerHTML = "";
             var items = obj.querySelectorAll("item");
             
             for (var i=0;i<items.length;i++){
@@ -164,6 +164,7 @@ function _callback(newsItems, count) {
         });
 
         document.querySelector("#newsContent").innerHTML += html;
+        prevHtml = html;
         $(window).scrollTop(tempScrollTop);
     }
 }
