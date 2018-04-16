@@ -6,27 +6,14 @@
         <link rel="stylesheet" type="text/css" href="styles.css">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
-        <script src="scripts.js"></script>
+
+        <title>News Feed Project</title>
+        
         <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-        <title>News Feed Project</title>
-        <script type="text/javascript">
-            if(localStorage){
-                $(document).ready(function(){
-                    // Store data
-                    if(localStorage.getItem("last")) {
-                        document.getElementById("last").innerHTML = localStorage.getItem("last");
-                    } else {
-                        document.getElementById("last").innerHTML = "This is your first time here!";
-                    }
-                    localStorage.setItem("last", new Date().toLocaleString());
-                });
-            } else{
-                alert("Sorry, your browser do not support local storage.");
-            }
-        </script>
+        <script src="scripts.js"></script>
     </head>
     <body>
         <div id="header">

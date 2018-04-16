@@ -1,13 +1,31 @@
 "use strict";
 
+if(localStorage){
+    $(document).ready(function(){
+        // Store data
+        if(localStorage.getItem("last")) {
+            document.getElementById("last").innerHTML = localStorage.getItem("last");
+        } else {
+            document.getElementById("last").innerHTML = "This is your first time here!";
+        }
+        localStorage.setItem("last", new Date().toLocaleString());
+    });
+} else{
+    alert("Sorry, your browser do not support local storage.");
+}
+
+// global vars rock, right?
 var urls = [];
 var items = [];
 var favs = [];
+var disabled = [];
+var tempScrollTop = $(window).scrollTop();
 
 function del(elem) {
     var index = -1;
     favs.forEach(function(fav){
         if(fav.date.getTime() == new Date(elem.id).getTime()) {
+            disabled.splice(disabled.indexOf(elem.id), 1);
             index = favs.indexOf(fav);
         }
     });
@@ -19,6 +37,7 @@ function favorite(elem) {
     var line = '<button id="'+elem.id+'" onclick="favorite(this)"><img src="favorite.png"> Favorite</button>';
     items.forEach(function(item){
         if(item.date.getTime() == new Date(elem.id).getTime()) {
+            disabled.push(elem.id);
             item.htmlLine = item.htmlLine.replace(line,'<button id="'+elem.id+'" onclick="del(this)"><img src="del.png"> Remove</button>');
             favs.push(item);
         }
@@ -43,6 +62,8 @@ function updateFavs() {
     }
 
     document.querySelector("#favorites").innerHTML = html;
+
+    init(urls);
 }
 
 function checkBoxes(elem) {
@@ -106,7 +127,18 @@ function xmlLoaded(urls){
                 }
                 line += "<h2>"+title+"</h2>";
                 line += '<p><i>'+pubDate+'</i> - <a href="'+link+'" target="_blank">See original</a></p>';
-                line += '<button id="'+pubDate+'" onclick="favorite(this)"><img src="favorite.png"> Favorite</button>';
+
+                var disabledBool = false;
+                disabled.forEach(function(date){
+                    if(new Date(pubDate).getTime() == new Date(date).getTime()) {
+                        line += '<button id="'+pubDate+'" onclick="favorite(this)" disabled><img src="favorite.png"> Favorited!</button>';
+                        disabledBool = true;
+                    }
+                });
+                if(!disabledBool){
+                    line += '<button id="'+pubDate+'" onclick="favorite(this)"><img src="favorite.png"> Favorite</button>';
+                }
+
                 line += "</div>";
                 newsItems.push({ htmlLine: line, date: new Date(pubDate) });
             }
