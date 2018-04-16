@@ -62,6 +62,7 @@ function updateFavs() {
     }
 
     document.querySelector("#favorites").innerHTML = html;
+    tempScrollTop = $(window).scrollTop();
 
     init(urls);
 }
@@ -163,5 +164,6 @@ function _callback(newsItems, count) {
         });
 
         document.querySelector("#newsContent").innerHTML += html;
+        $(window).scrollTop(tempScrollTop);
     }
 }
