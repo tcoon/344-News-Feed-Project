@@ -1,1 +1,1 @@
-See http://www.se.rit.edu/~tec3246/newsfeed/newsfeed.html
+See http://www.se.rit.edu/~tec3246/newsfeed/login.php
