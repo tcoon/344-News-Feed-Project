@@ -21,7 +21,11 @@
             <h1 id="newsTitle">Sports News</h1>
         </div>
         
-        <?php session_start(); ?>
+        <?php session_start(); 
+            if($_SESSION["username"] == "" && $_SESSION["password"] == "") {
+                header("Location:login.php");
+            }
+        ?>
         <p><b>Hi, <?php echo $_SESSION["username"]?>! Your last visit was: </b><div id="last"></div></p>
         <a id="logout" href="clearsessions.php">Log out</a>
         <br/>

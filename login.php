@@ -23,9 +23,6 @@
 
       // Start the session
       session_start();
-
-
-      $msg = '';
       
       if (isset($_POST['login']) && !empty($_POST['username']) 
          && !empty($_POST['password'])) {
