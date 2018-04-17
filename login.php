@@ -23,6 +23,11 @@
 
       // Start the session
       session_start();
+
+      if($_SESSION["username"] != "" && $_SESSION["password"] != "") {
+        // redirect to main page if logged in
+        header("Location:newsfeed.php");
+      }
       
       if (isset($_POST['login']) && !empty($_POST['username']) 
          && !empty($_POST['password'])) {
