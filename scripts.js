@@ -21,6 +21,29 @@ var favs = [];
 var disabled = [];
 var tempScrollTop = $(window).scrollTop();
 var prevHtml = "";
+var jsonData = "";
+
+// load info from json file
+function getData() {
+    var request = new XMLHttpRequest();
+    request.open("GET", "users.json");
+    request.onreadystatechange = function() {
+        if(this.responseText) {
+            jsonData = this.responseText;
+        }
+    }
+    request.send();
+}
+
+// save info to json file
+function saveData() {
+    var jsonToSave = JSON.stringify(jsonData);
+    var request = new XMLHttpRequest();
+    var saveUrl = "save.php?data=" + encodeURI(jsonToSave);
+    request.open("GET", saveUrl);
+    request.setREquestHeader("Content-Type", "text/plain;charset=UTF-8");
+    request.send();
+}
 
 function del(elem) {
     var index = -1;
@@ -43,6 +66,7 @@ function favorite(elem) {
             favs.push(item);
         }
     });
+    //getData();
     updateFavs();
 }
 
