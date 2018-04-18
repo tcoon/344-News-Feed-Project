@@ -1,11 +1,11 @@
 <?php
+    if (array_key_exists("favs", $_POST)) {
+        $myData = $_POST["favs"];
 
-    $myData = $_GET["data"];
+        $myFile = "favorites.json";
+        $fileHandle = fopen($myFile, "w");
 
-    $myFile = "users.json";
-    $fileHandle = fopen($myFile, "w");
-
-    fwrite($fileHandle, $myData);
-    fclose($fileHandle);
-
+        fwrite($fileHandle, $myData);
+        fclose($fileHandle);   
+    }
 ?>

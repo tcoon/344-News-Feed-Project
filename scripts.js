@@ -21,7 +21,7 @@ var favs = [];
 var disabled = [];
 var tempScrollTop = $(window).scrollTop();
 var prevHtml = "";
-var jsonData = "";
+var users = [];
 
 // load info from json file
 function getData() {
@@ -29,7 +29,7 @@ function getData() {
     request.open("GET", "users.json");
     request.onreadystatechange = function() {
         if(this.responseText) {
-            jsonData = this.responseText;
+            favs = this.responseText;
         }
     }
     request.send();
@@ -39,14 +39,18 @@ function refreshData() {
     init(urls);
 }
 
-// save info to json file
+// save favorites to json file
 function saveData() {
-    var jsonToSave = JSON.stringify(jsonData);
+    //var jsonToSave = JSON.stringify(users);
     var request = new XMLHttpRequest();
-    var saveUrl = "save.php?data=" + encodeURI(jsonToSave);
-    request.open("GET", saveUrl);
-    request.setREquestHeader("Content-Type", "text/plain;charset=UTF-8");
-    request.send();
+    // request.onreadystatechange = function() {
+    //     if (request.readyState == 4 && request.status == 200) {
+    //         alert(request.responseText);
+    //     }
+    // }
+    request.open("POST", "save.php", true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send("favs=" + JSON.stringify(favs));
 }
 
 function del(elem) {
@@ -70,7 +74,6 @@ function favorite(elem) {
             favs.push(item);
         }
     });
-    //getData();
     updateFavs();
 }
 
@@ -112,7 +115,9 @@ function checkBoxes(elem) {
 }
 
 window.onload = function(){
-    init(urls);
+    //getData();
+    updateFavs();
+    //init(urls);
 }
 
 
