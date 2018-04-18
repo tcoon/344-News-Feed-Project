@@ -35,6 +35,10 @@ function getData() {
     request.send();
 }
 
+function refreshData() {
+    init(urls);
+}
+
 // save info to json file
 function saveData() {
     var jsonToSave = JSON.stringify(jsonData);

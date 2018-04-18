@@ -53,6 +53,7 @@
             <input type="checkbox" id="nhl" onchange="checkBoxes(this)">
             <label style="color:green">Hockey News</label>
         </div>
+        <button onclick="refreshData()">Refresh feed</button>
         <div id="newsContent">
         </div>
 
