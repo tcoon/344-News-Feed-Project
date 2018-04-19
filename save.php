@@ -10,18 +10,20 @@
 
         $userDataExists = false;
         $userIndex = 0;
-        foreach($jsonArray as $index){
-            if(array_key_exists($user,$index)){
+        foreach($jsonArray as $index=>$value){ // i dont like php
+            $key = key((array)$value);
+            if ($key == $user) {
                 $userDataExists = true;
                 $userIndex = $index;
             }
         }
-        if($userDataExists) {
-            unset($jsonArray[$userIndex]);  // honestly don't know if this works properly
-        }
-
         $formData = array($user=>$favs);
-        array_push($jsonArray,$formData);
+
+        if($userDataExists) {
+            $jsonArray[$userIndex] = $formData;
+        } else {
+            array_push($jsonArray,$formData);
+        }
 
         $jsonData = json_encode($jsonArray, true);
 
@@ -31,4 +33,5 @@
     $_SESSION["username"] = "";
     $_SESSION["password"] = "";
     header("Location:login.php");
+
 ?>

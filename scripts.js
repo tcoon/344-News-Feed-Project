@@ -1,5 +1,6 @@
 "use strict";
 
+// using HTML5 to set "last visit time" (by browser, not by user)
 if(localStorage){
     $(document).ready(function(){
         // Store data
@@ -34,10 +35,6 @@ function getData() {
     });
 }
 
-function refreshData() {
-    init(urls);
-}
-
 // save favorites to json file
 function saveData() {
     var request = new XMLHttpRequest();
@@ -47,6 +44,7 @@ function saveData() {
     return true;
 }
 
+// delete favorited item
 function del(elem) {
     var index = -1;
     favs.forEach(function(fav){
@@ -59,6 +57,7 @@ function del(elem) {
     updateFavs();
 }
 
+// favorite item
 function favorite(elem) {
     var line = '<button id="'+elem.id+'" onclick="favorite(this)"><img src="favorite.png"> Favorite</button>';
     items.forEach(function(item){
@@ -71,6 +70,7 @@ function favorite(elem) {
     updateFavs();
 }
 
+// refresh favorites list
 function updateFavs() {
     var html = "";
 
@@ -93,6 +93,7 @@ function updateFavs() {
     init(urls);
 }
 
+// figure out which feeds to load
 function checkBoxes(elem) {
     tempScrollTop = $(window).scrollTop();
     var url = "http://www.espn.com/espn/rss/" + elem.id + "/news";
@@ -108,12 +109,13 @@ function checkBoxes(elem) {
     init(urls);
 }
 
+// get saved data for user
 window.onload = function(){
     getData();
-    //init(urls);
 }
 
 
+// load up content
 function init(urls){
     if(urls.length > 0) {
         xmlLoaded(urls);
@@ -124,6 +126,7 @@ function init(urls){
     
 }
 
+// get RSS feed content
 function xmlLoaded(urls){
     document.querySelector("#newsContent").innerHTML = prevHtml;
     var newsItems = [];
@@ -135,7 +138,6 @@ function xmlLoaded(urls){
             var items = obj.querySelectorAll("item");
             
             for (var i=0;i<items.length;i++){
-                //get the data out of the item
 
                 var newsItem = items[i];
                 
@@ -144,7 +146,6 @@ function xmlLoaded(urls){
                 var link = newsItem.querySelector("link").firstChild.nodeValue;
                 var pubDate = newsItem.querySelector("pubDate").firstChild.nodeValue;
                 
-                //present the item as HTML
                 var line = '';
                 if (url.indexOf('mlb') !== -1) {
                     line = '<div class="item" id="mlb">';
@@ -176,6 +177,7 @@ function xmlLoaded(urls){
     });
 }
 
+// AJAX callback so html gets set after RSS feed info is all loaded in
 function _callback(newsItems, count) {
     if (count == urls.length) {  // yeah, THIS janky
         newsItems.sort(function(a,b){

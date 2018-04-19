@@ -32,7 +32,7 @@
       if (isset($_POST['signup']) && !empty($_POST['signUpName']) 
          && !empty($_POST['signUpPass'])) {
 
-         $formData = array($_POST['signUpName']=>$_POST['signUpPass']);
+         $formData = array($_POST['signUpName']=>$_POST['signUpPass']);  // 100% secure, Meneely-approved operation here
 
          $jsonData = file_get_contents('users.json');
          $jsonArray = json_decode($jsonData, true);

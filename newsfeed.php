@@ -23,7 +23,6 @@
         crossorigin="anonymous"></script>
         <script type="text/javascript">
             var USER_NAME = '<?php echo $USER_NAME;?>';
-            var PASS_WORD = '<?php echo $PASS_WORD;?>';
         </script>
         <script src="scripts.js"></script>
     </head>
@@ -54,9 +53,6 @@
             <label style="color:green">Hockey News</label>
         </div>
         <br/>
-        <button onclick="refreshData()">Check for new articles</button>
-        <!--<button onclick="saveData()">Save favorites</button>-->
-        <!--<button onclick="getData()"></button>-->
         <div id="newsContent">
         </div>
 
