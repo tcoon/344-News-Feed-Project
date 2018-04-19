@@ -34,7 +34,7 @@
         </div>
 
         <p><b>Hi, <?php echo $USER_NAME?>! The last visit in this browser was: </b><div id="last"></div></p>
-        <a id="logout" href="clearsessions.php">Log out</a>
+        <a id="logout" href="save.php" onclick="saveData()">Log out</a>
         <br/>
         <br/>
 
@@ -53,8 +53,10 @@
             <input type="checkbox" id="nhl" onchange="checkBoxes(this)">
             <label style="color:green">Hockey News</label>
         </div>
-        <button onclick="refreshData()">Check for new news items</button>
+        <br/>
+        <button onclick="refreshData()">Check for new articles</button>
         <!--<button onclick="saveData()">Save favorites</button>-->
+        <!--<button onclick="getData()"></button>-->
         <div id="newsContent">
         </div>
 

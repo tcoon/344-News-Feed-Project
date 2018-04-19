@@ -21,18 +21,17 @@ var favs = [];
 var disabled = [];
 var tempScrollTop = $(window).scrollTop();
 var prevHtml = "";
-var users = [];
 
 // load info from json file
 function getData() {
-    var request = new XMLHttpRequest();
-    request.open("GET", "users.json");
-    request.onreadystatechange = function() {
-        if(this.responseText) {
-            favs = this.responseText;
-        }
-    }
-    request.send();
+    $.getJSON("favorites.json", function(json){
+        json.forEach(function(obj){
+            if(obj.hasOwnProperty(USER_NAME)) {
+                favs = obj[USER_NAME];
+            }
+        });
+        updateFavs();
+    });
 }
 
 function refreshData() {
@@ -41,22 +40,17 @@ function refreshData() {
 
 // save favorites to json file
 function saveData() {
-    //var jsonToSave = JSON.stringify(users);
     var request = new XMLHttpRequest();
-    // request.onreadystatechange = function() {
-    //     if (request.readyState == 4 && request.status == 200) {
-    //         alert(request.responseText);
-    //     }
-    // }
     request.open("POST", "save.php", true);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.send("favs=" + JSON.stringify(favs));
+    request.send("user=" + USER_NAME + "&favs=" + JSON.stringify(favs));
+    return true;
 }
 
 function del(elem) {
     var index = -1;
     favs.forEach(function(fav){
-        if(fav.date.getTime() == new Date(elem.id).getTime()) {
+        if(new Date(fav.date).getTime() == new Date(elem.id).getTime()) {
             disabled.splice(disabled.indexOf(elem.id), 1);
             index = favs.indexOf(fav);
         }
@@ -115,8 +109,7 @@ function checkBoxes(elem) {
 }
 
 window.onload = function(){
-    //getData();
-    updateFavs();
+    getData();
     //init(urls);
 }
 
